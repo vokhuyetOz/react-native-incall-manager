@@ -282,6 +282,28 @@ RCT_EXPORT_METHOD(setForceSpeakerphoneOn:(int)flag)
     NSLog(@"RNInCallManager.setForceSpeakerphoneOn(): flag: %d", flag);
     [self updateAudioRoute];
 }
+RCT_EXPORT_METHOD(setForceSpeakerRingback:(BOOL)enable)
+{
+    if(enable){
+        [self audioSessionSetCategory:_incallAudioCategory
+                              options:AVAudioSessionCategoryOptionDefaultToSpeaker
+                           callerMemo:NSStringFromSelector(_cmd)];
+        [self audioSessionSetActive:YES
+                            options:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
+                         callerMemo:NSStringFromSelector(_cmd)];
+     
+        [_audioSession overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+    } else {
+        [self audioSessionSetCategory:_incallAudioCategory
+                              options:0
+                           callerMemo:NSStringFromSelector(_cmd)];
+        [self audioSessionSetActive:YES
+                            options:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
+                         callerMemo:NSStringFromSelector(_cmd)];
+        [_audioSession overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+        
+    }
+}
 
 RCT_EXPORT_METHOD(setMicrophoneMute:(BOOL)enable)
 {

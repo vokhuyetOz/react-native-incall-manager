@@ -68,6 +68,13 @@ class InCallManager {
         _InCallManager.setForceSpeakerphoneOn(flag);
     }
 
+    setForceSpeakerRingback(enable) {
+        if(Platform.OS === 'android') {
+            return;
+        }
+        _InCallManager.setForceSpeakerRingback(!!enable);
+    }
+
     setMicrophoneMute(enable) {
         enable = (enable === true) ? true : false;
         _InCallManager.setMicrophoneMute(enable);
