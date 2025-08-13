@@ -29,7 +29,7 @@ declare class InCallManager {
   setSpeakerphoneOn(enable: boolean): void;
 
   setForceSpeakerphoneOn(flag: boolean): void;
-
+  setForceSpeakerRingback(enable: boolean): void;
   setMicrophoneMute(enable: boolean): void;
 
   startRingtone(
